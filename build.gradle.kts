@@ -112,20 +112,21 @@ fancyGradle {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven {
         name = "mezz.jei"
         url = uri("https://dvs1.progwml6.com/files/maven/")
     }
-    ivy {
+/*    ivy {
         name = "industrialcraft-2"
         artifactPattern("http://jenkins.ic2.player.to/job/IC2_111/39/artifact/build/libs/[module]-[revision].[ext]")
-    }
+    }*/
     maven {
         // location of a maven mirror for JEI files, as a fallback
         name = "ModMaven"
         url = uri("https://modmaven.k-4u.nl")
     }
-    maven {
+/*    maven {
         name = "Galacticraft"
         url = uri("https://maven.galacticraft.dev/repository/legacy-releases/")
     }
@@ -133,7 +134,7 @@ repositories {
         name = "LibVulpes"
         url = uri("http://maven.dmodoomsirius.me/")
         isAllowInsecureProtocol = true
-    }
+    }*/
     flatDir {
         dirs("libs")
     }
@@ -142,14 +143,20 @@ repositories {
 dependencies {
     minecraft(group = "net.minecraftforge", name = "forge", version = "$mcVersion-$forgeVersion")
 
-    compileOnly("net.industrial-craft:industrialcraft-2:$icVersion:dev")
+compileOnly(files("libs/industrialcraft-2-2.8.222-ex112-dev.jar"))
+    //compileOnly("net.industrial-craft:industrialcraft-2:$icVersion:dev")
     //implementation("zmaster587.libVulpes:LibVulpes:$mcVersion-$libVulpesVersion-$libVulpesBuildNum-deobf")
 
-    compileOnly(fg.deobf("dev.galacticraft:galacticraft-legacy:$gcVersion"))
+    //compileOnly(fg.deobf("dev.galacticraft:galacticraft-legacy:$gcVersion"))
+compileOnly(files("libs/Galacticraft-1.12.2-4.0.6.jar"))
 
-    compileOnly(fg.deobf("mezz.jei:jei_${mcVersion}:${jeiVersion}:api"))
-    runtimeOnly(fg.deobf("mezz.jei:jei_${mcVersion}:${jeiVersion}"))
-    implementation ("zmaster587.libVulpes:libVulpes:1.12.2-0.4.2+:deobf")
+    //compileOnly(fg.deobf("mezz.jei:jei_${mcVersion}:${jeiVersion}:api"))
+compileOnly(files("libs/jei_1.12.2-4.16.1.1012-api.jar"))
+runtimeOnly(files("libs/jei_1.12.2-4.16.1.1012-dev.jar"))
+    //runtimeOnly(fg.deobf("mezz.jei:jei_${mcVersion}:${jeiVersion}"))
+    //implementation ("zmaster587.libVulpes:libVulpes:1.12.2-0.4.2+:deobf")
+compileOnly(files("libs/LibVulpes-1.12.2-0.4.2-deobf.jar"))
+
 }
 
 tasks.processResources {
